@@ -3,5 +3,10 @@
     HomeMiddle
 {% endblock %}
 {% block content %}
+    {% if user.is_authenticated %}
+    
+    <h1>Hello, {{user.username}}</h1>
+    {% else %}
     <h1>Hi</h1>
+    {% endif %}
 {% endblock %}

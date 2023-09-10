@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block title %} {{furniture.name}} info {% endblock %}
+{% block header_title %} {{subtitle}} {% endblock %}
+{% block content %}
+<div class="card mb-3">
+    <div class="row g-0">
+      <div class="col-md-4">
+        <!-- <img src="https://static.djangoproject.com/img/logos/django-logo-positive.svg" class="img-fluid rounded-start"> -->
+        <img src="https://cdn-icons-png.flaticon.com/512/17/17115.png" class="img-fluid rounded-start">
+
+      </div>
+      <div class="col-md-8">
+        <div class="card-body">
+          <h5 class="card-title">
+             {{furniture.name}}
+          </h5>
+              <p class="card-text">Id: {{furniture.id}}</p>         
+              <p class="card-text">Name: {{furniture.name}}</p>
+              <p class="card-text">Type: {{furniture.type}}</p>
+              <p class="card-text">Price: {{furniture.price}}</p>
+              
+              <a class="btn bg-primary text-white" href="{% url 'furniture_index' %}">Go back</a>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

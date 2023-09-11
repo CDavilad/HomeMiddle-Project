@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block title %}
+    HomeMiddle
+{% endblock %}
+{% block content %}
+    {% if user.is_authenticated %}
+        <h1>Hello, {{user.username}} these are the reviews</h1>
+        <h2>Name: {{furniture.name}}</h2>
+        <h3>Review: I love it, very good furniture</h3>
+    {% else %}
+        <h1>Hi, you must log in to see the reviews</h1>
+    {% endif %}
+{% endblock %}

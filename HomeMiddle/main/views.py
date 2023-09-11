@@ -30,6 +30,14 @@ class FurnitureIndexView(TemplateView):
         viewData["furnitures"] = Furniture.objects.all()
 
         return render(request, self.template_name, viewData)
-
-
     
+class ReviewsPage(View):
+    template_name = 'reviews.html'
+
+    def get(self, request, id):
+        viewData = {}
+        viewData["title"] = "Title of the view"
+        viewData["subtitle"] =  "Subtitle of the view"
+        viewData["furniture"] = get_object_or_404(Furniture,pk=id)
+        
+        return render(request, self.template_name, viewData)

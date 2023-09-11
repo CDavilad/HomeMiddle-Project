@@ -5,19 +5,19 @@
 <div class="card mb-3">
     <div class="row g-0">
       <div class="col-md-4">
-        <!-- <img src="https://static.djangoproject.com/img/logos/django-logo-positive.svg" class="img-fluid rounded-start"> -->
-        <img src="https://cdn-icons-png.flaticon.com/512/17/17115.png" class="img-fluid rounded-start">
+        <img src="{{ furniture.image_url }}" class="card-img-top"  alt="Furniture Image">
 
       </div>
       <div class="col-md-8">
         <div class="card-body">
-          <h5 class="card-title">
+          <h4 class="card-title">
              {{furniture.name}}
-          </h5>
-              <p class="card-text">Id: {{furniture.id}}</p>         
-              <p class="card-text">Name: {{furniture.name}}</p>
+          </h4>
               <p class="card-text">Type: {{furniture.type}}</p>
-              <p class="card-text">Price: {{furniture.price}}</p>
+              <p class="card-text">Maker: {{furniture.maker}}</p>
+              <p class="card-text">Material: {{furniture.material}}</p>
+              <p class="card-text">Description: {{furniture.description}}</p>
+              <p class="card-text">Price: ${{furniture.price}}</p>
               
               <a class="btn bg-primary text-white" href="{% url 'furniture_index' %}">Go back</a>
         </div>

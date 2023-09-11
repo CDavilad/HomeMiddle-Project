@@ -7,7 +7,8 @@ class Furniture(models.Model):
     material = models.CharField(max_length=255)
     description = models.CharField(max_length=2048)
     price = models.DecimalField(max_digits=10, decimal_places=2)
-    #associated_furnitures = models.ManyToManyField('self', blank=True)
+    associated_furnitures = models.ManyToManyField('self', blank=True)
+    image_url = models.URLField()
 
     def __str__(self):
         return self.name

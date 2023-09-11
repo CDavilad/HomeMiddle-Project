@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 class Furniture(models.Model):
     name = models.CharField(max_length=255)
@@ -12,3 +13,10 @@ class Furniture(models.Model):
 
     def __str__(self):
         return self.name
+
+class ShoppingCart(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)  # Agrega un campo para el usuario si es necesario
+    items = models.ManyToManyField(Furniture)
+
+    def __str__(self):
+        return f"Shopping Cart for {self.user.username}" 

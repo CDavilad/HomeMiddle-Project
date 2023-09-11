@@ -2,6 +2,7 @@ from django.shortcuts import render, get_object_or_404, redirect, reverse
 from django.views.generic import TemplateView
 from django.views import View
 from django import forms
+from decimal import Decimal
 from .models import *
 # Create your views here.
 
@@ -64,11 +65,13 @@ def show_shopping_cart(request):
     furnitures_in_sc = []
     if shopping_cart:
         furnitures_in_sc = shopping_cart.items.all()
+    total = sum(furniture.price for furniture in furnitures_in_sc)
 
     viewData = {}
     viewData["title"] = "Title of the view"
     viewData["subtitle"] =  "Subtitle of the view"
     viewData["furnitures_in_sc"] = furnitures_in_sc
+    viewData["total"] = total
 
     return render(request, 'shopping_cart.html', viewData)
 
@@ -80,3 +83,22 @@ def remove_from_shopping_cart(request, furniture_id):
         shopping_cart.items.remove(furniture)
 
     return redirect('shopping_cart')
+
+from django.shortcuts import render, redirect
+from .models import ShoppingCart, Order
+
+
+def buy(request):
+    if not request.user.is_authenticated:
+        return redirect('login')
+    shopping_cart = ShoppingCart.objects.get(user=request.user)
+    total_price = Decimal(0)
+    for item in shopping_cart.items.all():
+        total_price += item.price 
+    order = Order.objects.create(user=request.user, total_price=total_price)
+    for item in shopping_cart.items.all():
+        order.items.add(item)
+    shopping_cart.items.clear()
+
+    return render(request, 'buy_sc.html', {'order': order})
+

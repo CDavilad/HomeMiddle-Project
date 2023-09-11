@@ -17,5 +17,7 @@
             </div>
         </div>
     {% endfor %}
+    <h1>Total price: ${{ total }}</h1>
+    <a class="btn btn-primary" href="{% url 'buy' %}">Buy</a>
 </div>
 {% endblock %}

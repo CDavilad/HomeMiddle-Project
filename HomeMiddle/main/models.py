@@ -20,3 +20,12 @@ class ShoppingCart(models.Model):
 
     def __str__(self):
         return f"Shopping Cart for {self.user.username}" 
+    
+class Order(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    items = models.ManyToManyField('Furniture')  # Suponiendo que tienes un modelo Furniture para representar los productos
+    date_ordered = models.DateTimeField(auto_now_add=True)
+    total_price = models.DecimalField(max_digits=10, decimal_places=2)  # Puedes personalizar esto según tus necesidades
+
+    def __str__(self):
+        return f'Order #{self.pk} - {self.user.username}'

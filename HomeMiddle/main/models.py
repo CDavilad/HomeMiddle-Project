@@ -29,3 +29,10 @@ class Order(models.Model):
 
     def __str__(self):
         return f'Order #{self.pk} - {self.user.username}'
+
+class WishList(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)  # Agrega un campo para el usuario si es necesario
+    items = models.ManyToManyField(Furniture)
+
+    def __str__(self):
+        return f"Wish List for {self.user.username}" 

@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block title %}
+    HomeMiddle
+{% endblock %}
+{% block content %}
+    {% if user.is_authenticated %}
+        <h2>Hello, {{user.username}} you added a product to the wish list</h2>
+        <h4>What do you want to do?</h4>
+        <a class="btn bg-primary text-white" href="{% url 'furniture_index' %}">Keep Buying</a>
+        <a class="btn bg-primary text-white" href="{% url 'wish_list' %}">Go to wish list</a>
+    {% else %}
+        <h1>Hi this is a wish list page</h1>
+    {% endif %}
+{% endblock %}

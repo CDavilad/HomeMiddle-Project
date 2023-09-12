@@ -3,11 +3,25 @@
     HomeMiddle
 {% endblock %}
 {% block content %}
-    {% if user.is_authenticated %}
-        <h1>Hello, {{user.username}} these are the reviews</h1>
-        <h2>Name: {{furniture.name}}</h2>
-        <h3>Review: I love it, very good furniture</h3>
-    {% else %}
-        <h1>Hi, you must log in to see the reviews</h1>
-    {% endif %}
+    <div class="w-full mt-6">
+        <h2 class="text-xl">Reviews</h2>
+
+        {% if user.is_authenticated %}
+            <form method="post" action=".">
+                {% csrf_token %}
+                
+                <div>
+                    <label>Rating</label>
+                    <select name="rating">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3" selected>3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                    </select>
+                </div>
+        {% else %}
+            <h1>Hi, you must log in to see the reviews</h1>
+        {% endif %}
+    </div>
 {% endblock %}

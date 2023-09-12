@@ -84,8 +84,7 @@ def remove_from_shopping_cart(request, furniture_id):
 
     return redirect('shopping_cart')
 
-from django.shortcuts import render, redirect
-from .models import ShoppingCart, Order
+
 
 
 def buy(request):

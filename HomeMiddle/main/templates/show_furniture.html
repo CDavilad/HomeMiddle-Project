@@ -20,11 +20,23 @@
               <p class="card-text">Price: ${{furniture.price}}</p>
               
               <a class="btn bg-primary text-white" href="{% url 'furniture_index' %}">Go back</a>
-              <a class="btn bg-primary text-white" href="{% url 'reviews' id=furniture.id %}">Reviews</a>
+              <a class="btn bg-primary text-white" href="{% url 'createReview' product_id=furniture.id %}">Make a Review</a>
               <a class="btn bg-primary text-white" href="{% url 'add_to_sc' furniture.id %}">Add to shopping cart</a>
               <a class="btn bg-primary text-white" href="{% url 'add_to_wl' furniture.id %}">Add to wish list</a>
         </div>
       </div>
     </div>
   </div>
+  <ul>
+  <div class="container">
+    {% for review in furniture.review_set.all %}
+        <div class="card">
+            <p class="card-text">{{ review.content }}</p>
+            <p class="card-text">By: {{ review.created_by }}</p>
+        </div>
+    {% empty %}
+        <li>No hay reseñas disponibles para este mueble.</li>
+    {% endfor %}
+  </div>
+</ul>
 {% endblock %}

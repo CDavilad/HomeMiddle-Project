@@ -3,25 +3,36 @@
     HomeMiddle
 {% endblock %}
 {% block content %}
-    <div class="w-full mt-6">
-        <h2 class="text-xl">Reviews</h2>
-
-        {% if user.is_authenticated %}
-            <form method="post" action=".">
-                {% csrf_token %}
-                
-                <div>
-                    <label>Rating</label>
-                    <select name="rating">
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3" selected>3</option>
-                        <option value="4">4</option>
-                        <option value="5">5</option>
-                    </select>
+<div class="card mb-3">
+    <div class="row g-0">
+        <div>
+            <div class="card-body">
+                <h5 class="card-title">Add Review for {{ product.name }}</h5>
+                {% if error %}
+                <div class="alert alert-danger mt-3" role="alert">
+                    {{ error }}
                 </div>
-        {% else %}
-            <h1>Hi, you must log in to see the reviews</h1>
-        {% endif %}
+                {% endif %}
+                <p class="card-text">
+                    <form method="POST">
+                        {% csrf_token %}
+                        <!-- Itera sobre los campos del formulario -->
+                        {% for field in form %}
+                        <div class="form-group">
+                            <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                            {{ field }}
+                            {% if field.help_text %}
+                            <small class="form-text text-muted">{{ field.help_text }}</small>
+                            {% endif %}
+                        </div>
+                        {% endfor %}
+                        <button type="submit" class="btn btn-primary">
+                            Add Review
+                        </button>
+                    </form>
+                </p>
+            </div>
+        </div>
     </div>
-{% endblock %}
+</div>
+{% endblock content %}

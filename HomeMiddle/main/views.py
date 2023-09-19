@@ -4,6 +4,8 @@ from django.views import View
 from django import forms
 from decimal import Decimal
 from .models import *
+from .forms import ReviewForm
+from django.contrib.auth.decorators import login_required
 # Create your views here.
 
 class HomePage(TemplateView):
@@ -141,3 +143,20 @@ def remove_from_wish_list(request, furniture_id):
         wishList.items.remove(furniture)
 
     return redirect('wish_list')
+
+@login_required    
+def createReview(request, product_id):
+    product = get_object_or_404(Furniture,pk=product_id)
+    if request.method == 'GET':
+        return render(request, 'reviews.html', {'form':ReviewForm(), 'product':product})
+    else:
+        try:
+            form = ReviewForm(request.POST)
+            newReview = form.save(commit=False)
+            newReview.created_by = request.user
+            newReview.product = product
+            newReview.save()
+            return redirect('furniture_index')
+        
+        except ValueError:
+          return render(request,'reviews.html', {'form':ReviewForm(), 'error':'bad data passed in'})

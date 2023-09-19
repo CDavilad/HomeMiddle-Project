@@ -36,3 +36,12 @@ class WishList(models.Model):
 
     def __str__(self):
         return f"Wish List for {self.user.username}" 
+
+class Review(models.Model):
+  content = models.CharField(max_length=100)
+  created_at = models.DateTimeField(auto_now_add=True)
+  created_by = models.ForeignKey(User, on_delete=models.CASCADE)
+  product = models.ForeignKey(Furniture, on_delete=models.CASCADE)
+  
+  def __str__(self):
+      return self.text

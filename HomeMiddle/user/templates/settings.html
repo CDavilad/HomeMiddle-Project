@@ -12,8 +12,11 @@
                         <div class="card-body">
                             <form name="user_form" method="POST" action="{% url 'settings' %}">
                                 {% csrf_token %}
+                                <label for="">First name</label>
                                 <input type="text" class="form-control mb-2" placeholder="Enter first name" name="first_name" value="{{user.first_name }}" />
+                                <label for="">Last name</label>
                                 <input type="text" class="form-control mb-2" placeholder="Enter last name" name="last_name" value="{{user.last_name }}" />
+                                <label for="">Email</label>
                                 <input type="email" class="form-control mb-2" placeholder="Enter email" name="email" value="{{user.email }}" />
                                 <br>
                                 <input type="submit" class="btn btn-primary" value="Send" />
@@ -31,7 +34,13 @@
                         <div class="card-body">
                             <form name="profile_form" method="POST" action="{% url 'settings' %}">
                                 {% csrf_token %}
+                                <label for=""> Address</label>
+                                {% if profile_form.data.address  == None  %}
+                                <input type="text" class="form-control mb-2" placeholder="Enter address" name="address" value="" />
+                                {% else %}
                                 <input type="text" class="form-control mb-2" placeholder="Enter address" name="address" value="{{profile_form.data.address }}" />
+                                {% endif %}
+                                <label for="">Creditcard</label>
                                 <input type="number" min="0" class="form-control mb-2" placeholder="Enter creditcard" name="creditcard" value="{{ profile_form.data.creditcard }}" />
                                 <br>
                                 <input type="submit" class="btn btn-primary" value="Send" />

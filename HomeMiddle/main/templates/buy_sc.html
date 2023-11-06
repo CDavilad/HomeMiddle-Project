@@ -2,6 +2,7 @@
 {% block title %} Confirmation {% endblock %}
 {% block content %}
 <div class="container">
+    
     <h1>Thank you for purchasing</h1>
     <p>Your order has been proccessed succesfully. Here is the information of your order:</p>
     <p>Order number: {{ order.pk }}</p>
@@ -13,5 +14,12 @@
         {% endfor %}
     </ul>
     <p>Total: ${{ order.total_price }}</p>
+
+    <p><h2>Order boucher in PDF:</h2></p>
+    <a href="{{ MEDIA_URL }}PDF/{{pdf_file}}" target="_blank"><img src="{{ MEDIA_URL }}images/PDF.png"/></a>
+
+    
+      
+
 </div>
 {% endblock %}

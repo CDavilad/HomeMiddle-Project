@@ -20,7 +20,7 @@
               {% endif %}
               <form method="POST" action="{% url 'signup' %}">
                 {% csrf_token %}
-                <input type="text" class="form-control mb-2" placeholder="Enter first name" name="first_name" value="john" />
+                <input type="text" class="form-control mb-2" placeholder="Enter first name" name="first_name" value="{{form.data.first_name }}" />
                 <input type="text" class="form-control mb-2" placeholder="Enter last name" name="last_name" value="{{form.data.last_name }}" />
                 <input type="email" class="form-control mb-2" placeholder="Enter email" name="email" value="{{form.data.email }}" />
                 <input type="text" class="form-control mb-2" placeholder="Enter user name" name="username" value="{{form.data.username }}" />

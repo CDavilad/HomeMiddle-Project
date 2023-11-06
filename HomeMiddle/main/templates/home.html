@@ -4,9 +4,19 @@
 {% endblock %}
 {% block content %}
     {% if user.is_authenticated %}
-    
-    <h1>Hello, {{user.username}}</h1>
+        <h1>Hello, {{user.username}}</h1>
     {% else %}
-    <h1>Hi</h1>
+        <h1>HomeMiddle</h1>
+    {% endif %}
+    {% if weather %}
+    <div class="card">
+        <div class="card-body">
+            <p>City: {{weather.location.name}}</p>
+            <p>Temperature (c°): {{weather.current.temp_c}}</p>
+            <p>Condition: {{weather.current.condition.text}} <img src="{{weather.current.condition.icon}}" alt=""></p>
+        </div>
+    </div>
+        
+        
     {% endif %}
 {% endblock %}

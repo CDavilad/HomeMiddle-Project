@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404, redirect, reverse
+from django.shortcuts import render, get_object_or_404, redirect, reverse, HttpResponse
 from django.views.generic import TemplateView
 from django.views import View
 from django import forms
@@ -6,10 +6,27 @@ from decimal import Decimal
 from .models import *
 from .forms import ReviewForm
 from django.contrib.auth.decorators import login_required
+from rest_framework import serializers 
+import requests
+import json
+from django.http import FileResponse, HttpResponseNotFound,  HttpResponse
+from .invertion import PDFPaymentProvider
+import os
+from django.core.files.storage import FileSystemStorage
+
 # Create your views here.
 
 class HomePage(TemplateView):
     template_name = 'home.html'
+    
+ 
+    def get(self, request):
+        url='http://api.weatherapi.com/v1/current.json?key=2f788c18a09248fda87224843230511&q=Medellin&aqi=no'
+        response = requests.get(url)
+        viewData = {}
+        viewData["weather"] = response.json()
+        return render(request, self.template_name, viewData)
+
 
 
 class FurnitureShowView(View):
@@ -101,8 +118,11 @@ def buy(request):
     for item in shopping_cart.items.all():
         order.items.add(item)
     shopping_cart.items.clear()
+    payment_provider = PDFPaymentProvider()
+    name=request.user.first_name + " " + request.user.last_name
+    pdf_file = payment_provider.generate_payment_pdf(name, total_price, order)
 
-    return render(request, 'buy_sc.html', {'order': order})
+    return render(request, 'buy_sc.html', {'order': order, 'pdf_file': pdf_file})
 
 
 class WishListPage(TemplateView):
@@ -160,3 +180,16 @@ def createReview(request, product_id):
         
         except ValueError:
           return render(request,'reviews.html', {'form':ReviewForm(), 'error':'bad data passed in'})
+
+def get_service_team(request):
+    url='http://127.0.0.1:8000/api/furniture'
+    response = requests.get(url)
+
+    if response.status_code == 200:
+        return HttpResponse(response.json())
+
+
+
+
+
+    

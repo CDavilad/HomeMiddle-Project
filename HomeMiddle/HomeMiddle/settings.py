@@ -11,6 +11,8 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
 from pathlib import Path
+from django.utils.translation import gettext_lazy as _
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -25,7 +27,7 @@ SECRET_KEY = 'django-insecure-aj#1j8&hd29)*oe08j^^4xpy25cvmd9ibj)qa3qvfbf1a5sg=i
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['34.42.84.222']
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -40,16 +42,20 @@ INSTALLED_APPS = [
     'main.apps.MainConfig',
     'authentication.apps.AuthenticationConfig',
     'user.apps.UserConfig',
+    'api.apps.ApiConfig',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    
 ]
 
 ROOT_URLCONF = 'HomeMiddle.urls'
@@ -65,6 +71,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'django.template.context_processors.media',
             ],
         },
     },
@@ -111,6 +118,7 @@ LANGUAGE_CODE = 'en-us'
 TIME_ZONE = 'America/Bogota'
 
 USE_I18N = True
+USE_L10N = True
 
 USE_TZ = True
 
@@ -119,8 +127,18 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
 STATIC_URL = 'static/'
+STATIC_ROOT = BASE_DIR / 'static'
+
+MEDIA_URL = 'media/'
+MEDIA_ROOT = BASE_DIR / 'media'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+LANGUAGES = (('en',_('English')),('es', _('Spanish')),)
+
+LOCALE_PATHS = [
+    BASE_DIR / 'locale',
+]

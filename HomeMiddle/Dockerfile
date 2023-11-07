@@ -11,7 +11,7 @@ COPY requirements.txt requirements.txt
 RUN pip install -r requirements.txt
 
 # Copia todo el contenido de tu proyecto Django al contenedor
-COPY . /code
+COPY . .
 
 # Expone el puerto en el que se ejecuta tu aplicación Django
 EXPOSE 8000
